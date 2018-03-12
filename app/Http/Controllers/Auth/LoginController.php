@@ -57,7 +57,8 @@ class LoginController extends Controller
             User::create([
                 'name'     => $user->name,
                 'email'    => $user->email,
-                'codpes' => $user->id,
+                'codpes'   => $user->id,
+                'unidade'  => $user->nomeUnidade,
             ]);
         }
         Auth::login($authUser, true);
