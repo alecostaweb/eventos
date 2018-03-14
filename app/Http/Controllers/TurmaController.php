@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Turma;
 use App\Curso;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class TurmaController extends Controller
 {
@@ -42,8 +43,8 @@ class TurmaController extends Controller
     public function store(Request $request, $curso_id)
     {
         $turma = new \App\Turma;
-        $turma->inicio = $request->inicio;
-        $turma->fim = $request->fim;;
+        $turma->inicio = Carbon::createFromFormat('d/m/Y', $request->inicio);
+        $turma->fim = Carbon::createFromFormat('d/m/Y', $request->fim);
         $turma->curso_id = $request->curso_id;
         $turma->save();
         return redirect("/cursos/$curso_id");

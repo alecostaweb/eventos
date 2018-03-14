@@ -15,9 +15,9 @@
 Route::get('/', 'indexController@index');
 
 # login/logout
-Route::get('login', 'Auth\LoginController@redirectToProvider');
+Route::get('login', 'Auth\LoginController@redirectToProvider')->name('login');
 Route::get('login/senhaunica/callback', 'Auth\LoginController@handleProviderCallback');
-Route::post('logout', 'Auth\LoginController@logout');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 # Disciplina
 Route::resource('/cursos', 'CursoController');
