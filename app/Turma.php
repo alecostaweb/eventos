@@ -11,4 +11,10 @@ class Turma extends Model
     {   
         return $this->belongsTo('App\Curso');
     }
+    public function subscriptions()
+    {   
+        return $this->hasMany('App\Subscription');
+    }
+
+
 }

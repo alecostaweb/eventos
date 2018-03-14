@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Turma;
-use App\Curso;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Auth;
+
+use App\Turma;
+use App\Curso;
+use App\Subscription;
 
 class TurmaController extends Controller
 {
@@ -46,6 +49,7 @@ class TurmaController extends Controller
         $turma->inicio = Carbon::createFromFormat('d/m/Y', $request->inicio);
         $turma->fim = Carbon::createFromFormat('d/m/Y', $request->fim);
         $turma->curso_id = $request->curso_id;
+        $turma->inscricao_aberta = true; // temporário
         $turma->save();
         return redirect("/cursos/$curso_id");
     }
@@ -93,5 +97,34 @@ class TurmaController extends Controller
     public function destroy(Turma $turma)
     {
         //
+    }
+
+    public function subscription($curso_id, $turma_id)
+    {
+        $turma = Turma::find($turma_id);
+        return view('turmas.subscription',compact('curso_id','turma'));
+    }
+
+    public function subscriptionStore(Request $request, $curso_id, $turma_id)
+    {   
+        $user = Auth::user();
+        
+        // Verifica se pessoa já está inscrita
+        $already = Subscription::where([
+            ['turma_id','=', (int)$turma_id],
+            ['user_id','=', (int)$user->id]
+        ])->get();
+        if( !($already->isEmpty()) ){
+            $request->session()->flash('alert-danger', 'Sorry =( Você já está inscrito nesse curso');
+            return redirect('/');
+        }
+ 
+        $subscription = new Subscription;
+        $subscription->turma_id = $turma_id;
+        $subscription->user_id = $user->id;
+        $subscription->motivacao = $request->motivacao;
+        $subscription->save();
+        $request->session()->flash('alert-success', 'Inscrição realizada com sucesso!');
+        return redirect('/');
     }
 }

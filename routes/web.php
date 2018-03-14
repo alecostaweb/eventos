@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 # index
 Route::get('/', 'indexController@index');
 
@@ -23,5 +12,9 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::resource('/cursos', 'CursoController');
 
 # Turmas
-Route::get('/cursos/{curso_id}/turmas/create','TurmaController@create');
-Route::post('/cursos/{curso_id}/turmas','TurmaController@store');
+Route::get('cursos/{curso_id}/turmas/create','TurmaController@create');
+Route::post('cursos/{curso_id}/turmas','TurmaController@store');
+
+# subscriptions
+Route::get('cursos/{curso_id}/turmas/{turma_id}/subscription', 'TurmaController@subscription');
+Route::post('cursos/{curso_id}/turmas/{turma_id}/subscription', 'TurmaController@subscriptionStore');
