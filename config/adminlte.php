@@ -89,7 +89,7 @@ return [
 
     'logout_url' => '/logout',
 
-    'logout_method' => 'GET',
+    'logout_method' => 'POST',
 
     'login_url' => 'login/senhaunica',
 
@@ -111,7 +111,7 @@ return [
         'Administração',
         [
             'text' => 'Cursos',
-            'url'  => '/',
+            'url'  => '/cursos',
             'icon' => 'graduation-cap',
         ],
         [

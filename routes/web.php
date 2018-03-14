@@ -11,8 +11,17 @@
 |
 */
 
+# index
 Route::get('/', 'indexController@index');
 
-Route::get('login/senhaunica', 'Auth\LoginController@redirectToProvider');
+# login/logout
+Route::get('login', 'Auth\LoginController@redirectToProvider');
 Route::get('login/senhaunica/callback', 'Auth\LoginController@handleProviderCallback');
-Route::get('logout', 'Auth\LoginController@logout');
+Route::post('logout', 'Auth\LoginController@logout');
+
+# Disciplina
+Route::resource('/cursos', 'CursoController');
+
+# Turmas
+Route::get('/cursos/{curso_id}/turmas/create','TurmaController@create');
+Route::post('/cursos/{curso_id}/turmas','TurmaController@store');
