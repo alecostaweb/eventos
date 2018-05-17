@@ -1,2 +1,2 @@
-# todentro
-Sistema para gerenciamento de inscrições e emissão de certificados no USPdev
+# eventos
+Sistema para gerenciamento de eventos, inscrições, emissão de boletos e certificados
